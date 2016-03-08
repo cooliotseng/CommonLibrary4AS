@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="LintError" severity="ignore"/>
+    <issue id="MissingSuperCall" severity="ignore" category="Correctness"/>
+    <issue id="MissingRegistered" severity="ignore" category="Correctness"/>
+    <issue id="ResourceAsColor" severity="ignore" category="Correctness"/>
+    <issue id="ResourceType" severity="ignore" category="Correctness"/>
+    <issue id="Assert" severity="ignore" category="Correctness"/>
+    <issue id="CommitPrefEdits" severity="ignore" category="Correctness"/>
+    <issue id="DefaultLocale" severity="ignore" category="Correctness"/>
+    <issue id="InconsistentLayout" severity="ignore" category="Correctness"/>
+    <issue id="InlinedApi" severity="ignore" category="Correctness"/>
+    <issue id="InvalidPackage" severity="ignore" category="Correctness"/>
+    <issue id="OldTargetApi" severity="ignore" category="Correctness"/>
+    <issue id="SimpleDateFormat" severity="ignore" category="Correctness"/>
+    <issue id="InflateParams" severity="ignore" category="Correctness"/>
+    <issue id="GradleDynamicVersion" severity="ignore" category="Correctness"/>
+    <issue id="GradleOverrides" severity="ignore" category="Correctness"/>
+    <issue id="PrivateResource" severity="ignore" category="Correctness"/>
+    <issue id="ViewConstructor" severity="ignore" category="Usability"/>
+    <issue id="ClickableViewAccessibility" severity="ignore" category="Accessibility"/>
+    <issue id="RtlHardcoded" severity="ignore" category="Bi-directional Text"/>
+    <issue id="HandlerLeak" severity="ignore" category="Performance"/>
+</lint>

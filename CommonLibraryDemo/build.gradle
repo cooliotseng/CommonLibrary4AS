@@ -13,6 +13,8 @@ buildscript {
 }
 
 allprojects {
+
+    //指定仓库位置，可以是远程仓库，指定url仓库,也可以是本地仓库
     repositories {
         jcenter()
         maven { url "https://jitpack.io" }

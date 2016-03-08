@@ -1,28 +1,92 @@
 apply plugin: 'com.android.application'
 
+def releaseTime() {
+
+    return new Date().format("yyyy-mm-dd", TimeZone.getTimeZone("UTC"))
+}
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        applicationId "com.example.dragrelativelayout"
+        applicationId "com.example.dragrelativelayout" //保证与我们程序中的一致，供程序使用
         minSdkVersion 9
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
+        manifestPlaceholders = [UMENG_CHANNEL_VALUE: "umeng"]
     }
 
+    signingConfigs {
+
+        debug {}
+        //签名打包
+        release {
+            storeFile file("common.jks")
+            storePassword "rzq123456"
+            keyAlias "qndroid"
+            keyPassword "rzq123456"
+        }
+    }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled false //是滞进行混淆
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            zipAlignEnabled true
+            shrinkResources true
+            signingConfig signingConfigs.release
+
+            //指定输出文件名
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        // 输出apk名称为boohee_v1.0_2015-01-15_wandoujia.apk
+                        def fileName = "common_v${defaultConfig.versionName}_${releaseTime()}_${variant.productFlavors[0].name}.apk"
+                        output.outputFile = new File(outputFile.parent, fileName)
+                    }
+                }
+            }
         }
     }
 
+    //使AS知道.so文件的位置
     sourceSets {
         main {
             jniLibs.srcDirs = ['libs']
         }
+    }
+
+    lintOptions {
+
+        abortOnError false
+        lintConfig file("lint.xml")
+    }
+    // 友盟多渠道打包，与defaultConfig的属性完全一样
+    productFlavors {
+        //正式上线时要打的各个渠道的包
+        wandoujia {
+
+            resValue "string", "app_name", "CommonLibraryDemo"
+        }
+        taobao {
+            resValue "string", "app_name", "CommonLibraryDemo"
+        }
+        //测试时打的功能包，指定了不同的包名后可以同时安装在手机上进行测试
+        okhttp {
+            applicationIdSuffix "okhttp"
+            resValue "string", "app_name", "okhttp"
+        }
+        jpush {
+            applicationIdSuffix "jpush"
+            resValue "string", "app_name", "jpush"
+        }
+    }
+
+    productFlavors.all { flavor ->
+        flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
     }
 }
 
@@ -30,6 +94,4 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(':commonlibrary')
     compile 'com.android.support:appcompat-v7:23.1.1'
-
-
 }
