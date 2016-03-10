@@ -1,20 +1,21 @@
 package com.example.dragrelativelayout.asynchttp;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.EditText;
+import android.widget.TextView;
+
 import com.commonlibrary.asynchttpclient.DisposeDataHandle;
 import com.example.dragrelativelayout.R;
+import com.example.dragrelativelayout.base.BaseActivity;
 import com.example.dragrelativelayout.jpush.JPushTestActivity;
 import com.example.dragrelativelayout.manager.UserManager;
 import com.example.dragrelativelayout.module.PushMessage;
 import com.example.dragrelativelayout.module.User;
 import com.loopj.android.http.RequestHandle;
-
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.EditText;
-import android.widget.TextView;
 
 /**
  * *******************************************************
@@ -25,7 +26,7 @@ import android.widget.TextView;
  * @文件描述：测试用户登陆页面
  * @修改历史：2015年11月19日创建初始版本 ********************************************************
  */
-public class LoginActivity extends Activity implements OnClickListener {
+public class LoginActivity extends BaseActivity implements OnClickListener {
     private RequestHandle loginRequest;
     /**
      * UI
@@ -46,6 +47,7 @@ public class LoginActivity extends Activity implements OnClickListener {
         setContentView(R.layout.activity_mailassociate);
         initData();
         initView();
+        Log.e("----->", mPageName);
     }
 
     private void initData() {

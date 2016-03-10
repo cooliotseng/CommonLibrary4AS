@@ -74,15 +74,15 @@ android {
         taobao {
             resValue "string", "app_name", "CommonLibraryDemo"
         }
-        //测试时打的功能包，指定了不同的包名后可以同时安装在手机上进行测试
-        okhttp {
-            applicationIdSuffix "okhttp"
-            resValue "string", "app_name", "okhttp"
-        }
-        jpush {
-            applicationIdSuffix "jpush"
-            resValue "string", "app_name", "jpush"
-        }
+//        //测试时打的功能包，指定了不同的包名后可以同时安装在手机上进行测试
+//        okhttp {
+//            applicationIdSuffix "okhttp"
+//            resValue "string", "app_name", "okhttp"
+//        }
+//        jpush {
+//            applicationIdSuffix "jpush"
+//            resValue "string", "app_name", "jpush"
+//        }
     }
 
     productFlavors.all { flavor ->
