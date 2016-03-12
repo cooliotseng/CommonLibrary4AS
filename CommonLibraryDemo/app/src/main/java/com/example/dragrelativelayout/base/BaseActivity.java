@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.umeng.analytics.MobclickAgent;
 
+import butterknife.ButterKnife;
+
 /**
  * @author: vision
  * @function: 所有Activity的基类，用来处理一些公共事件，如：数据统计
@@ -12,20 +14,37 @@ import com.umeng.analytics.MobclickAgent;
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
-    public String mPageName;
+    public String mClassName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPageName = getComponentName().getShortClassName();
+        initUmeng();
+        //initButterknife();
+    }
+
+    /**
+     * 初始化友盟统计
+     */
+    private void initUmeng() {
+
+        mClassName = getComponentName().getShortClassName();
         MobclickAgent.setDebugMode(true);
         MobclickAgent.openActivityDurationTrack(false);
+    }
+
+    /**
+     * 初始化Butterknife注解框架，fragment也要bind才行。
+     */
+    protected void initButterknife() {
+
+        ButterKnife.bind(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        MobclickAgent.onPageStart(mPageName);
+        MobclickAgent.onPageStart(mClassName);
         MobclickAgent.onResume(this);
     }
 
@@ -37,7 +56,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        MobclickAgent.onPageEnd(mPageName);
+        MobclickAgent.onPageEnd(mClassName);
         MobclickAgent.onPause(this);
     }
 
