@@ -18,6 +18,8 @@ import com.example.dragrelativelayout.module.User;
 import com.loopj.android.http.RequestHandle;
 import com.umeng.analytics.MobclickAgent;
 
+import butterknife.Bind;
+
 /**
  * *******************************************************
  *
@@ -34,7 +36,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
      */
     private EditText mUserNameView;
     private EditText mPasswordView;
-    private TextView mLoginView;
+
+    @Bind(R.id.login_button)
+    protected TextView mLoginView;
 
     /**
      * data
@@ -47,6 +51,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mailassociate);
         initData();
+
+        initButterknife();
         initView();
     }
 
@@ -61,7 +67,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
     private void initView() {
         mUserNameView = (EditText) findViewById(R.id.associate_email_input);
         mPasswordView = (EditText) findViewById(R.id.login_input_password);
-        mLoginView = (TextView) findViewById(R.id.login_button);
+        //mLoginView = (TextView) findViewById(R.id.login_button);
         mLoginView.setOnClickListener(this);
     }
 

@@ -24,7 +24,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             zipAlignEnabled true
             shrinkResources true
-
             //指定输出文件名
             libraryVariants.all { variant ->
                 variant.outputs.each { output ->
@@ -35,8 +34,9 @@ android {
                         output.outputFile = new File(outputFile.parent, fileName)
                     }
                 }
-            }
-        }
+            }      
+	    
+	      }
     }
 
     useLibrary 'org.apache.http.legacy' //必须使用1.5.0以上插件才能识别
