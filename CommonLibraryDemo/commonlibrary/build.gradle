@@ -45,6 +45,8 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
     //butterknife所需依赖
     compile 'com.jakewharton:butterknife:7.0.1'
+    //otto另一个类似于Eventbus的事件发布订阅库
+    compile 'com.squareup:otto:1.3.8'
 }
 
 
