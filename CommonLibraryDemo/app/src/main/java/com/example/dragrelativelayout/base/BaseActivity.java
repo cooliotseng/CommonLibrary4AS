@@ -7,17 +7,29 @@ import com.umeng.analytics.MobclickAgent;
 
 /**
  * @author: vision
- * @function: 所有Activity的基类，用来处理一些公共事件，如：数据统计
+ * @function: 所有Activity的基类，用来处理一些公共事件，如：数据统计,公共UI的逻辑处理
  * @date: 16/3/10
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
-    public String mPageName;
+    /**
+     * 统计Activity跳转的名字
+     */
+    public String mClassName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPageName = getComponentName().getShortClassName();
+
+        initUmeng();
+    }
+
+    /**
+     * 为所有页面添加友盟统计
+     */
+    private void initUmeng() {
+
+        mClassName = getComponentName().getShortClassName();
         MobclickAgent.setDebugMode(true);
         MobclickAgent.openActivityDurationTrack(false);
     }
@@ -25,7 +37,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        MobclickAgent.onPageStart(mPageName);
+        MobclickAgent.onPageStart(mClassName);
         MobclickAgent.onResume(this);
     }
 
@@ -37,7 +49,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        MobclickAgent.onPageEnd(mPageName);
+        MobclickAgent.onPageEnd(mClassName);
         MobclickAgent.onPause(this);
     }
 
