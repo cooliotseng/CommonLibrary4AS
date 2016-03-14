@@ -2,7 +2,6 @@ package com.example.dragrelativelayout.asynchttp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -11,11 +10,13 @@ import android.widget.TextView;
 import com.commonlibrary.asynchttpclient.DisposeDataHandle;
 import com.example.dragrelativelayout.R;
 import com.example.dragrelativelayout.base.BaseActivity;
+import com.example.dragrelativelayout.constants.UmengEvent;
 import com.example.dragrelativelayout.jpush.JPushTestActivity;
 import com.example.dragrelativelayout.manager.UserManager;
 import com.example.dragrelativelayout.module.PushMessage;
 import com.example.dragrelativelayout.module.User;
 import com.loopj.android.http.RequestHandle;
+import com.umeng.analytics.MobclickAgent;
 
 import butterknife.Bind;
 
@@ -122,6 +123,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
         switch (v.getId()) {
 
             case R.id.login_button:
+                MobclickAgent.onEvent(this, UmengEvent.ONLOGIN.getValue()); //统计登陆事件
                 /**
                  * 可以弹出一个对话框阻止用户再用次操作
                  */
