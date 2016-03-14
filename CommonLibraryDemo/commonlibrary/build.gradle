@@ -1,4 +1,12 @@
 apply plugin: 'com.android.library'
+import java.text.SimpleDateFormat
+
+def releaseTime() {
+
+    def formatter = new SimpleDateFormat('dd_MM_yyyy');
+    def date = new Date();
+    return formatter.format(date);
+}
 
 android {
     compileSdkVersion 23
@@ -16,6 +24,18 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             zipAlignEnabled true
             shrinkResources true
+
+            //指定输出文件名
+            libraryVariants.all { variant ->
+                variant.outputs.each { output ->
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('aar')) {
+                        // 输出apk名称为boohee_v1.0_2015-01-15_wandoujia.apk
+                        def fileName = "common_" + "${defaultConfig.versionName}" + "_" + "${releaseTime()}" + ".aar"
+                        output.outputFile = new File(outputFile.parent, fileName)
+                    }
+                }
+            }
         }
     }
 

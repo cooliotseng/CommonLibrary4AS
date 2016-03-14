@@ -1,8 +1,11 @@
 apply plugin: 'com.android.application'
+import java.text.SimpleDateFormat
 
 def releaseTime() {
 
-    return new Date().format("yyyy-mm-dd", TimeZone.getTimeZone("UTC"))
+    def formatter = new SimpleDateFormat('dd_MM_yyyy');
+    def date = new Date();
+    return formatter.format(date);
 }
 
 android {
@@ -44,7 +47,7 @@ android {
                     def outputFile = output.outputFile
                     if (outputFile != null && outputFile.name.endsWith('.apk')) {
                         // 输出apk名称为boohee_v1.0_2015-01-15_wandoujia.apk
-                        def fileName = "common_v${defaultConfig.versionName}_${releaseTime()}_${variant.productFlavors[0].name}.apk"
+                        def fileName = "common_" + "${defaultConfig.versionName}" + "_" + "${releaseTime()}" + "_" + "${variant.productFlavors[0].name}" + ".apk"
                         output.outputFile = new File(outputFile.parent, fileName)
                     }
                 }
