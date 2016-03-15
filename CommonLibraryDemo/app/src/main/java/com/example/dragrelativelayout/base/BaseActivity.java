@@ -20,7 +20,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initUmeng();
-        //initButterknife();
+    }
+    //initButterknife();
+
     /**
      * 初始化友盟统计
      */
@@ -38,10 +40,11 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
     }
+
     @Override
     protected void onResume() {
         super.onResume();
-        MobclickAgent.onPageStart(mPageName);
+        MobclickAgent.onPageStart(mClassName);
         MobclickAgent.onResume(this);
     }
 
@@ -53,7 +56,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        MobclickAgent.onPageEnd(mPageName);
+        MobclickAgent.onPageEnd(mClassName);
         MobclickAgent.onPause(this);
     }
 
