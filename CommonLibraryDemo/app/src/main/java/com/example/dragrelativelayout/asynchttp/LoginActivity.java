@@ -41,6 +41,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
     @Bind(R.id.login_button)
     protected TextView mLoginView;
 
+    private String haha;
     /**
      * data
      */
