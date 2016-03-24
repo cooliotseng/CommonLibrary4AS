@@ -20,6 +20,10 @@ import android.webkit.WebViewClient;
 
 import java.util.Iterator;
 import java.util.Map;
+=======
+import com.example.dragrelativelayout.R;
+import com.example.dragrelativelayout.base.BaseActivity;
+import com.loopj.android.http.PersistentCookieStore;
 
 import cz.msebera.android.httpclient.cookie.Cookie;
 
@@ -59,7 +63,6 @@ public class WebActivity extends Activity {
                 view.loadUrl(url);
                 return true;
             }
-
             /**
              * can intercept request and define our custom WebResourceResponse to the html
              * @param view
@@ -90,7 +93,6 @@ public class WebActivity extends Activity {
         loadCookieUrl(url);
         mWebView.loadUrl(url);
     }
-
     /**
      * 处理特殊的请求，返回给html一个本地文件，如SD上的。
      *
