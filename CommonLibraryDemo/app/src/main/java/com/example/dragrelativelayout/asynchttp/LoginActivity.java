@@ -34,9 +34,10 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
     /**
      * UI
      */
-    private EditText mUserNameView;
-    private EditText mPasswordView;
-
+    @Bind(R.id.associate_email_input)
+    protected EditText mUserNameView;
+    @Bind(R.id.login_input_password)
+    protected EditText mPasswordView;
     @Bind(R.id.login_button)
     protected TextView mLoginView;
 
@@ -65,8 +66,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
     }
 
     private void initView() {
-        mUserNameView = (EditText) findViewById(R.id.associate_email_input);
-        mPasswordView = (EditText) findViewById(R.id.login_input_password);
+        //mUserNameView = (EditText) findViewById(R.id.associate_email_input);
+        //mPasswordView = (EditText) findViewById(R.id.login_input_password);
         //mLoginView = (TextView) findViewById(R.id.login_button);
         mLoginView.setOnClickListener(this);
     }

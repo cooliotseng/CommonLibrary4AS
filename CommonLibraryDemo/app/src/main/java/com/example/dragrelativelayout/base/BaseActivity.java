@@ -24,7 +24,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initUmeng();
-
         //过滤掉不需要滑动关闭的Activity
         if (!(this instanceof LoginActivity)) {
             /**
@@ -33,7 +32,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             Slidr.attach(this, SliderManager.getNormalSlidrConfig(CommonApplication.getInstance()));
         }
     }
-
+        //initButterknife();
     /**
      * 初始化友盟统计
      */
@@ -51,11 +50,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
     }
-
     @Override
     protected void onResume() {
         super.onResume();
-        MobclickAgent.onPageStart(mClassName);
+        MobclickAgent.onPageStart(mPageName);
         MobclickAgent.onResume(this);
     }
 
@@ -67,7 +65,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        MobclickAgent.onPageEnd(mClassName);
+        MobclickAgent.onPageEnd(mPageName);
         MobclickAgent.onPause(this);
     }
 
