@@ -1,14 +1,14 @@
 package com.example.dragrelativelayout.asynchttp;
 
-import com.example.dragrelativelayout.R;
-import com.loopj.android.http.PersistentCookieStore;
-
-import android.app.Activity;
 import android.os.Bundle;
 import android.webkit.CookieManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import com.example.dragrelativelayout.R;
+import com.example.dragrelativelayout.base.BaseActivity;
+import com.loopj.android.http.PersistentCookieStore;
 
 import cz.msebera.android.httpclient.cookie.Cookie;
 
@@ -19,7 +19,7 @@ import cz.msebera.android.httpclient.cookie.Cookie;
  * @文件描述：显示需要Cookie的WebView页面
  * @修改历史：2015年11月21日创建初始版本
  **********************************************************/
-public class WebActivity extends Activity {
+public class WebActivity extends BaseActivity {
 	private static final String url = "http://i.qianjing.com/account/ac/coupon.php";
 
 	/**

@@ -1,19 +1,15 @@
 package com.example.dragrelativelayout.asynchttp;
 
-import com.example.dragrelativelayout.R;
-import com.example.dragrelativelayout.application.CommonApplication;
-import com.example.dragrelativelayout.module.User;
-import com.loopj.android.http.PersistentCookieStore;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
-import uk.co.senab.photoview.PhotoView;
+import com.example.dragrelativelayout.R;
+import com.example.dragrelativelayout.base.BaseActivity;
+import com.example.dragrelativelayout.module.User;
+import com.loopj.android.http.PersistentCookieStore;
 
 /**
  * *******************************************************
@@ -24,7 +20,7 @@ import uk.co.senab.photoview.PhotoView;
  * @文件描述：显示从服务器返回的Cookie值
  * @修改历史：2015年11月21日创建初始版本 ********************************************************
  */
-public class HomeActivity extends Activity {
+public class HomeActivity extends BaseActivity {
     private User user;
     /**
      * UI
@@ -39,6 +35,7 @@ public class HomeActivity extends Activity {
         setContentView(R.layout.activity_home);
         initData();
         initView();
+
     }
 
     private void initData() {

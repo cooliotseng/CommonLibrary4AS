@@ -14,7 +14,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.dragrelativelayout" //保证与我们程序中的一致，供程序使用
-        minSdkVersion 9
+        minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"

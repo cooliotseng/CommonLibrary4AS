@@ -20,9 +20,14 @@
         </activity>
 
         <!-- asynchttp -->
-        <activity android:name=".asynchttp.HomeActivity"/>
+        <activity
+            android:name=".asynchttp.HomeActivity"
+            android:theme="@style/SlidableTheme"/>
         <!--<activity android:name=".asynchttp.LoginActivity"/> -->
-        <activity android:name=".asynchttp.WebActivity"/>
+        <activity
+            android:name=".asynchttp.WebActivity"
+            android:theme="@style/SlidableTheme"
+            />
 
         <!-- sharesdk -->
         <!--<activity android:name=".sharesdk.ShareActivity"/>-->

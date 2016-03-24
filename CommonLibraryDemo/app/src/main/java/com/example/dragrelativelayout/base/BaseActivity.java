@@ -3,6 +3,10 @@ package com.example.dragrelativelayout.base;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.dragrelativelayout.application.CommonApplication;
+import com.example.dragrelativelayout.asynchttp.LoginActivity;
+import com.example.dragrelativelayout.manager.SliderManager;
+import com.r0adkll.slidr.Slidr;
 import com.umeng.analytics.MobclickAgent;
 
 import butterknife.ButterKnife;
@@ -20,7 +24,16 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initUmeng();
-        //initButterknife();
+
+        //过滤掉不需要滑动关闭的Activity
+        if (!(this instanceof LoginActivity)) {
+            /**
+             * 增加滑动关闭Actiivty,可能会和页面内滑动事件产生冲突。
+             */
+            Slidr.attach(this, SliderManager.getNormalSlidrConfig(CommonApplication.getInstance()));
+        }
+    }
+
     /**
      * 初始化友盟统计
      */
@@ -38,10 +51,11 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
     }
+
     @Override
     protected void onResume() {
         super.onResume();
-        MobclickAgent.onPageStart(mPageName);
+        MobclickAgent.onPageStart(mClassName);
         MobclickAgent.onResume(this);
     }
 
@@ -53,7 +67,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        MobclickAgent.onPageEnd(mPageName);
+        MobclickAgent.onPageEnd(mClassName);
         MobclickAgent.onPause(this);
     }
 
