@@ -20,6 +20,7 @@ android {
         versionName "1.0"
         multiDexEnabled true
         manifestPlaceholders = [UMENG_CHANNEL_VALUE: "umeng"]
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     signingConfigs {
@@ -97,4 +98,11 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(':commonlibrary')
     compile 'com.android.support:appcompat-v7:23.1.1'
+
+    debugCompile 'junit:junit:4.12'
+    debugCompile 'org.mockito:mockito-core:1.+'
+    androidTestCompile 'com.android.support.test:runner:0.4.1'
+    androidTestCompile 'com.android.support.test:rules:0.4.1'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
+    androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2.1'
 }

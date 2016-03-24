@@ -2,7 +2,7 @@ package com.example.dragrelativelayout.constants;
 
 /**
  * @author: vision
- * @function:
+ * @function: 友盟统计自定义事件类型
  * @date: 16/3/11
  */
 public enum UmengEvent {

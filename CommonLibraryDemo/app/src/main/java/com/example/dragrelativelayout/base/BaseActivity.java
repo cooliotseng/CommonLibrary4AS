@@ -21,7 +21,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         initUmeng();
     }
-    //initButterknife();
 
     /**
      * 初始化友盟统计

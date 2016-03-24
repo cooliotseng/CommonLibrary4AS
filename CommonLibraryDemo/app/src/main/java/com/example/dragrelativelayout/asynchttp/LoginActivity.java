@@ -41,7 +41,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
     @Bind(R.id.login_button)
     protected TextView mLoginView;
 
-    private String haha;
     /**
      * data
      */
@@ -67,9 +66,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
     }
 
     private void initView() {
-        //mUserNameView = (EditText) findViewById(R.id.associate_email_input);
-        //mPasswordView = (EditText) findViewById(R.id.login_input_password);
-        //mLoginView = (TextView) findViewById(R.id.login_button);
         mLoginView.setOnClickListener(this);
     }
 
@@ -125,7 +121,10 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
         switch (v.getId()) {
 
             case R.id.login_button:
-                MobclickAgent.onEvent(this, UmengEvent.ONLOGIN.getValue()); //统计登陆事件
+                /**
+                 * 利用友盟统计登陆事件
+                 */
+                MobclickAgent.onEvent(this, UmengEvent.ONLOGIN.getValue());
                 /**
                  * 可以弹出一个对话框阻止用户再用次操作
                  */
