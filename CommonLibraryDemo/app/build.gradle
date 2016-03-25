@@ -105,4 +105,7 @@ dependencies {
     androidTestCompile 'com.android.support.test:rules:0.4.1'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
     androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2.1'
+
+    //android模糊效果
+    compile 'jp.wasabeef:blurry:2.0.0'
 }

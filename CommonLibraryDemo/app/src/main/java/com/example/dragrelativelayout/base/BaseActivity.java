@@ -32,6 +32,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             Slidr.attach(this, SliderManager.getNormalSlidrConfig(CommonApplication.getInstance()));
         }
     }
+
     /**
      * 初始化友盟统计
      */
