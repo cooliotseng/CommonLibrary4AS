@@ -1,31 +1,29 @@
 package com.example.dragrelativelayout.okhttp;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.net.CookieManager;
-import java.util.ArrayList;
-
-import com.commonlibrary.okhttp.CommonOkHttpClient;
-import com.commonlibrary.okhttp.listener.DisposeDataHandle;
-import com.commonlibrary.okhttp.listener.DisposeDataListener;
-import com.commonlibrary.okhttp.listener.DisposeDownloadListener;
-import com.commonlibrary.okhttp.listener.DisposeHandleCookieListener;
-import com.commonlibrary.okhttp.request.CommonRequest;
-import com.commonlibrary.okhttp.request.RequestParams;
-import com.example.dragrelativelayout.R;
-import com.example.dragrelativelayout.constants.UrlConstants;
-import com.example.dragrelativelayout.module.User;
-
 import android.app.Activity;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.commonlibrary.okhttp.CommonOkHttpClient;
+import com.commonlibrary.okhttp.listener.DisposeDataHandle;
+import com.commonlibrary.okhttp.listener.DisposeDataListener;
+import com.commonlibrary.okhttp.listener.DisposeHandleCookieListener;
+import com.commonlibrary.okhttp.request.CommonRequest;
+import com.commonlibrary.okhttp.request.RequestParams;
+import com.example.dragrelativelayout.R;
+import com.example.dragrelativelayout.constants.UrlConstants;
+import com.example.dragrelativelayout.imageloader.SimpleImageLoader;
+import com.example.dragrelativelayout.module.User;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.net.CookieManager;
+import java.util.ArrayList;
 
 /**
  * @author vision
@@ -33,6 +31,7 @@ import android.widget.TextView;
  */
 public class OkHttpTestActivity extends Activity implements DisposeHandleCookieListener, OnClickListener {
     private ImageView mImageView;
+    private ImageView mSecondView;
     private Button mLoginView;
     private Button mCookieView;
     private Button mFileDownloadView;
@@ -51,6 +50,7 @@ public class OkHttpTestActivity extends Activity implements DisposeHandleCookieL
 
     private void initView() {
         mImageView = (ImageView) findViewById(R.id.four_view);
+        mSecondView = (ImageView) findViewById(R.id.second_image_view);
         mLoginView = (Button) findViewById(R.id.login_view);
         mCookieView = (Button) findViewById(R.id.get_cookie_view);
         mFileDownloadView = (Button) findViewById(R.id.down_load_file);
@@ -96,23 +96,26 @@ public class OkHttpTestActivity extends Activity implements DisposeHandleCookieL
      */
     private void downloadFile() {
 
-        CommonOkHttpClient.downloadFile(CommonRequest.createGetRequest("http://images.csdn.net/20150817/1.jpg", null),
-                new DisposeDataHandle(new DisposeDownloadListener() {
-                    @Override
-                    public void onSuccess(Object responseObj) {
-                        mImageView.setImageBitmap(BitmapFactory.decodeFile(((File) responseObj).getAbsolutePath()));
-                    }
+//        CommonOkHttpClient.downloadFile(CommonRequest.createGetRequest("http://images.csdn.net/20150817/1.jpg", null),
+//                new DisposeDataHandle(new DisposeDownloadListener() {
+//                    @Override
+//                    public void onSuccess(Object responseObj) {
+//                        mImageView.setImageBitmap(BitmapFactory.decodeFile(((File) responseObj).getAbsolutePath()));
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Object reasonObj) {
+//                    }
+//
+//                    @Override
+//                    public void onProgress(int progrss) {
+//                        // 监听下载进度，更新UI
+//                        Log.e("--------->当前进度为:", progrss + "");
+//                    }
+//                }, Environment.getExternalStorageDirectory().getAbsolutePath() + "/test2.jpg"));
+        SimpleImageLoader.getInstance().displayImage(mImageView, "http://images.csdn.net/20150817/1.jpg");
 
-                    @Override
-                    public void onFailure(Object reasonObj) {
-                    }
-
-                    @Override
-                    public void onProgress(int progrss) {
-                        // 监听下载进度，更新UI
-                        Log.e("--------->当前进度为:", progrss + "");
-                    }
-                }, Environment.getExternalStorageDirectory().getAbsolutePath() + "/test2.jpg"));
+        SimpleImageLoader.getInstance().displayImage(mSecondView, "http://banbao.chazidian.com/uploadfile/2016-01-25/s145368924044608.jpg");
     }
 
     private void uploadFile() throws FileNotFoundException {
