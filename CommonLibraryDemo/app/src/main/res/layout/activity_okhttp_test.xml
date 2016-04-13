@@ -12,6 +12,13 @@
         android:layout_gravity="center_horizontal"
         android:background="@android:color/black" />
 
+    <ImageView
+        android:id="@+id/second_image_view"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@android:color/black" />
+
     <Button
         android:id="@+id/login_view"
         android:layout_width="match_parent"
