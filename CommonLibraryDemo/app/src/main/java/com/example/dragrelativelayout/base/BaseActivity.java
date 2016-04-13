@@ -2,6 +2,7 @@ package com.example.dragrelativelayout.base;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.ViewGroup;
 
 import com.example.dragrelativelayout.application.CommonApplication;
 import com.example.dragrelativelayout.asynchttp.LoginActivity;
@@ -10,6 +11,7 @@ import com.r0adkll.slidr.Slidr;
 import com.umeng.analytics.MobclickAgent;
 
 import butterknife.ButterKnife;
+import jp.wasabeef.blurry.Blurry;
 
 /**
  * @author: vision
@@ -39,6 +41,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     private void initUmeng() {
 
         mClassName = getComponentName().getShortClassName();
+
         MobclickAgent.setDebugMode(true);
         MobclickAgent.openActivityDurationTrack(false);
     }

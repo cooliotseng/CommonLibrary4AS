@@ -64,7 +64,7 @@ public class JPushReceiver extends BroadcastReceiver {
              */
             if (getCurrentTask(context)) {
                 Intent pushIntent = new Intent();
-                pushIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //pushIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 pushIntent.putExtra("pushMessage", pushMessage);
 
                 /**
