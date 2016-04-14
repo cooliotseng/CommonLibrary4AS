@@ -1,6 +1,5 @@
 package com.example.dragrelativelayout.okhttp;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
@@ -16,6 +15,8 @@ import com.commonlibrary.okhttp.listener.DisposeHandleCookieListener;
 import com.commonlibrary.okhttp.request.CommonRequest;
 import com.commonlibrary.okhttp.request.RequestParams;
 import com.example.dragrelativelayout.R;
+import com.example.dragrelativelayout.base.BaseActivity;
+import com.example.dragrelativelayout.constants.Constants;
 import com.example.dragrelativelayout.constants.UrlConstants;
 import com.example.dragrelativelayout.imageloader.SimpleImageLoader;
 import com.example.dragrelativelayout.module.User;
@@ -29,7 +30,7 @@ import java.util.ArrayList;
  * @author vision
  * @function OkHttpClient网络请求测试页面
  */
-public class OkHttpTestActivity extends Activity implements DisposeHandleCookieListener, OnClickListener {
+public class OkHttpTestActivity extends BaseActivity implements DisposeHandleCookieListener, OnClickListener {
     private ImageView mImageView;
     private ImageView mSecondView;
     private Button mLoginView;
@@ -113,9 +114,13 @@ public class OkHttpTestActivity extends Activity implements DisposeHandleCookieL
 //                        Log.e("--------->当前进度为:", progrss + "");
 //                    }
 //                }, Environment.getExternalStorageDirectory().getAbsolutePath() + "/test2.jpg"));
-        SimpleImageLoader.getInstance().displayImage(mImageView, "http://images.csdn.net/20150817/1.jpg");
 
-        SimpleImageLoader.getInstance().displayImage(mSecondView, "http://banbao.chazidian.com/uploadfile/2016-01-25/s145368924044608.jpg");
+        if (hasPermission(Constants.WRITE_READ_EXTERNAL_PERMISSION)) {
+
+            doUnderThePermission();
+        } else {
+            requestPermission(Constants.WRITE_READ_EXTERNAL_CODE, Constants.WRITE_READ_EXTERNAL_PERMISSION);
+        }
     }
 
     private void uploadFile() throws FileNotFoundException {
@@ -193,5 +198,13 @@ public class OkHttpTestActivity extends Activity implements DisposeHandleCookieL
                 downloadFile();
                 break;
         }
+    }
+
+    @Override
+    public void doUnderThePermission() {
+
+        SimpleImageLoader.getInstance().displayImage(mImageView, "http://images.csdn.net/20150817/1.jpg");
+        SimpleImageLoader.getInstance().displayImage(mSecondView, "http://banbao.chazidian.com/uploadfile/2016-01-25/s145368924044608.jpg");
+
     }
 }

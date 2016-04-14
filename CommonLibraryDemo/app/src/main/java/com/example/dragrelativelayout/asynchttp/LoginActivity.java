@@ -63,6 +63,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
             mPushMessage = (PushMessage) intent.getSerializableExtra("pushMessage");
         }
         fromPush = intent.getBooleanExtra("fromPush", false);
+
     }
 
     private void initView() {

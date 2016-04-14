@@ -1,39 +1,34 @@
 package com.example.dragrelativelayout.asynchttp;
 
-import com.example.dragrelativelayout.R;
-import com.loopj.android.http.PersistentCookieStore;
-
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.graphics.drawable.GradientDrawable;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.webkit.CookieManager;
 import android.webkit.WebChromeClient;
-import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.example.dragrelativelayout.R;
+import com.loopj.android.http.PersistentCookieStore;
+
 import java.util.Iterator;
 import java.util.Map;
-=======
-import com.example.dragrelativelayout.R;
-import com.example.dragrelativelayout.base.BaseActivity;
-import com.loopj.android.http.PersistentCookieStore;
 
 import cz.msebera.android.httpclient.cookie.Cookie;
 
-/**********************************************************
+/**
+ * *******************************************************
+ *
  * @文件名称：WebActivity.java
  * @文件作者：renzhiqiang
  * @创建时间：2015年11月21日 下午12:16:05
  * @文件描述：显示需要Cookie的WebView页面
- * @修改历史：2015年11月21日创建初始版本
- **********************************************************/
+ * @修改历史：2015年11月21日创建初始版本 ********************************************************
+ */
 public class WebActivity extends Activity {
     private static final String url = "http://i.qianjing.com/account/ac/coupon.php";
 
@@ -63,6 +58,7 @@ public class WebActivity extends Activity {
                 view.loadUrl(url);
                 return true;
             }
+
             /**
              * can intercept request and define our custom WebResourceResponse to the html
              * @param view
@@ -93,6 +89,7 @@ public class WebActivity extends Activity {
         loadCookieUrl(url);
         mWebView.loadUrl(url);
     }
+
     /**
      * 处理特殊的请求，返回给html一个本地文件，如SD上的。
      *
