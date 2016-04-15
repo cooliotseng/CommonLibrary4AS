@@ -1,10 +1,13 @@
 package com.example.dragrelativelayout.asynchttp;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.commonlibrary.asynchttpclient.DisposeDataHandle;
@@ -15,10 +18,12 @@ import com.example.dragrelativelayout.jpush.JPushTestActivity;
 import com.example.dragrelativelayout.manager.UserManager;
 import com.example.dragrelativelayout.module.PushMessage;
 import com.example.dragrelativelayout.module.User;
+import com.example.dragrelativelayout.util.DialogUtil;
 import com.loopj.android.http.RequestHandle;
 import com.umeng.analytics.MobclickAgent;
 
 import butterknife.Bind;
+import jp.wasabeef.blurry.Blurry;
 
 /**
  * *******************************************************
@@ -34,6 +39,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
     /**
      * UI
      */
+    @Bind(R.id.root_view)
+    protected LinearLayout mRootView;
     @Bind(R.id.associate_email_input)
     protected EditText mUserNameView;
     @Bind(R.id.login_input_password)
@@ -71,7 +78,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
     }
 
     private void requestLogin() {
+        DialogUtil.getInstance().showProgressDialog(this, getString(R.string.loading));
         loginRequest = RequestCenter.requestLogin("18911230100", "999999q", new DisposeDataHandle() {
+
                     @Override
                     public void onRetry(int retryNo) {
                         super.onRetry(retryNo);
@@ -79,6 +88,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 
                     @Override
                     public void onSuccess(Object responseObj) {
+                        DialogUtil.getInstance().dismissProgressDialog();
                         /**
                          * 保存登陆信息
                          */
@@ -103,9 +113,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 
                     @Override
                     public void onFailure(Object reasonObj) {
+                        DialogUtil.getInstance().dismissProgressDialog();
                     }
                 }
-
         );
     }
 

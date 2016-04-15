@@ -1,16 +1,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white" >
+    android:background="@android:color/white">
 
     <ScrollView
         android:id="@+id/login_scroll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/iv_login_logo"
@@ -27,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/iv_login_logo"
                 android:paddingLeft="25dp"
-                android:paddingRight="25dp" >
+                android:paddingRight="25dp">
 
                 <EditText
                     android:id="@+id/associate_email_input"
