@@ -1,30 +1,25 @@
 package com.example.dragrelativelayout.asynchttp;
 
-import com.example.dragrelativelayout.R;
-import com.loopj.android.http.PersistentCookieStore;
-
 import android.annotation.TargetApi;
-import android.app.Activity;
-import android.graphics.drawable.GradientDrawable;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.webkit.CookieManager;
 import android.webkit.WebChromeClient;
-import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import java.util.Iterator;
-import java.util.Map;
-=======
-import java.util.Iterator;
-import java.util.Map;
+import com.example.dragrelativelayout.R;
+import com.example.dragrelativelayout.base.BaseActivity;
 import com.loopj.android.http.PersistentCookieStore;
+
+import java.util.Iterator;
+import java.util.Map;
+
 import cz.msebera.android.httpclient.cookie.Cookie;
+
 
 /**********************************************************
  * @文件名称：WebActivity.java

@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".okhttp.OkHttpTestActivity"
+            android:name=".asynchttp.LoginActivity"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
