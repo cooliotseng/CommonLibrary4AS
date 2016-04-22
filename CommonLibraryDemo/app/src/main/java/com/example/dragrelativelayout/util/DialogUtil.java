@@ -2,9 +2,6 @@ package com.example.dragrelativelayout.util;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.view.ViewGroup;
-
-import jp.wasabeef.blurry.Blurry;
 
 /**
  * Created by renzhiqiang on 16/3/25.
@@ -46,5 +43,6 @@ public class DialogUtil {
     }
 
     private ProgressDialog progressDialog;
+    //懒加载模式
     private static DialogUtil utils = new DialogUtil();
 }

@@ -14,6 +14,7 @@ import com.commonlibrary.okhttp.listener.DisposeDataHandle;
 import com.commonlibrary.okhttp.listener.DisposeDownloadListener;
 import com.commonlibrary.okhttp.request.CommonRequest;
 import com.example.dragrelativelayout.application.CommonApplication;
+import com.example.dragrelativelayout.util.BitmapUtil;
 
 import java.io.File;
 
@@ -55,9 +56,7 @@ public class SimpleImageLoader {
 
         if (mInstance == null) {
             synchronized (SimpleImageLoader.class) {
-
                 if (mInstance == null) {
-
                     mInstance = new SimpleImageLoader();
                 }
             }
@@ -96,7 +95,6 @@ public class SimpleImageLoader {
     private void putBitmapToCache(String url, Bitmap bitmap) {
 
         if (bitmap != null) {
-
             mLruCache.put(url, bitmap);
             mDiskHelper.put(Utils.hashKeyForDisk(url), bitmap);
         }
@@ -110,24 +108,27 @@ public class SimpleImageLoader {
     private void downloadImage(final ImageView imageView, final String url) {
 
         CommonOkHttpClient.downloadFile(CommonRequest.createGetRequest(url, null),
-                new DisposeDataHandle(new DisposeDownloadListener() {
-                    @Override
-                    public void onSuccess(Object responseObj) {
-                        Bitmap bitmap = BitmapFactory.decodeFile(((File) responseObj).getAbsolutePath());
+            new DisposeDataHandle(new DisposeDownloadListener() {
+                @Override
+                public void onSuccess(Object responseObj) {
 
-                        imageView.setImageBitmap(bitmap);
-                        putBitmapToCache(url, bitmap);
-                    }
+                    Bitmap bitmap = BitmapFactory.decodeFile(((File) responseObj).getAbsolutePath());
+                    Log.e("TAG", "未裁剪图片：" + bitmap.getByteCount() + " ");
+                    bitmap = BitmapUtil.ratio(((File) responseObj).getAbsolutePath(), imageView.getWidth(), imageView.getHeight());
+                    Log.e("TAG", "裁剪图片后：" + bitmap.getByteCount() + " ");
 
-                    @Override
-                    public void onFailure(Object reasonObj) {
-                    }
+                    putBitmapToCache(url, bitmap);
+                }
 
-                    @Override
-                    public void onProgress(int progrss) {
-                        // 监听下载进度，更新UI
-                        Log.e("--------->当前进度为:", progrss + "");
-                    }
-                }, Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + System.currentTimeMillis() + ".jpg"));
+                @Override
+                public void onFailure(Object reasonObj) {
+                }
+
+                @Override
+                public void onProgress(int progrss) {
+                    // 监听下载进度，更新UI
+                    Log.e("--------->当前进度为:", progrss + "");
+                }
+            }, Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + System.currentTimeMillis() + ".jpg"));
     }
 }

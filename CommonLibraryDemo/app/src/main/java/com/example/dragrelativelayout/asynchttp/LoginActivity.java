@@ -1,11 +1,14 @@
 package com.example.dragrelativelayout.asynchttp;
 
-import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,7 +26,6 @@ import com.loopj.android.http.RequestHandle;
 import com.umeng.analytics.MobclickAgent;
 
 import butterknife.Bind;
-import jp.wasabeef.blurry.Blurry;
 
 /**
  * *******************************************************
@@ -37,7 +39,7 @@ import jp.wasabeef.blurry.Blurry;
 public class LoginActivity extends BaseActivity implements OnClickListener {
     private RequestHandle loginRequest;
     /**
-     * UI
+     * UI，使用了注解，要明白编译期注解的原理
      */
     @Bind(R.id.root_view)
     protected LinearLayout mRootView;
@@ -47,12 +49,13 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
     protected EditText mPasswordView;
     @Bind(R.id.login_button)
     protected TextView mLoginView;
-
     /**
      * data
      */
     private PushMessage mPushMessage; // 推送过来的消息
     private boolean fromPush; // 是否从推送到此页面
+
+    LoginBroadcastReceiver receiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +65,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 
         initButterknife();
         initView();
+
+        receiver = new LoginBroadcastReceiver();
+        registerBroadcast();
     }
 
     private void initData() {
@@ -70,7 +76,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
             mPushMessage = (PushMessage) intent.getSerializableExtra("pushMessage");
         }
         fromPush = intent.getBooleanExtra("fromPush", false);
-
     }
 
     private void initView() {
@@ -81,41 +86,46 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
         DialogUtil.getInstance().showProgressDialog(this, getString(R.string.loading));
         loginRequest = RequestCenter.requestLogin("18911230100", "999999q", new DisposeDataHandle() {
 
-                    @Override
-                    public void onRetry(int retryNo) {
-                        super.onRetry(retryNo);
-                    }
+                @Override
+                public void onRetry(int retryNo) {
+                    super.onRetry(retryNo);
+                }
 
-                    @Override
-                    public void onSuccess(Object responseObj) {
-                        DialogUtil.getInstance().dismissProgressDialog();
+                @Override
+                public void onSuccess(Object responseObj) {
+                    DialogUtil.getInstance().dismissProgressDialog();
+                    /**
+                     * 保存登陆信息
+                     */
+                    UserManager.getInstance().setUser((User) responseObj);
+
+                    /**
+                     *  发送一个登陆成功广播
+                     */
+                    sendLoginSuccessBroadcast();
+
+                    if (fromPush) {
+                        Intent intent = new Intent(LoginActivity.this, JPushTestActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("pushMessage", mPushMessage);
+                        startActivity(intent);
+                        finish();
+
+                    } else {
                         /**
-                         * 保存登陆信息
+                         * 正常登陆流程
                          */
-                        UserManager.getInstance().setUser((User) responseObj);
-
-                        if (fromPush) {
-                            Intent intent = new Intent(LoginActivity.this, JPushTestActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            intent.putExtra("pushMessage", mPushMessage);
-                            startActivity(intent);
-                            finish();
-
-                        } else {
-                            /**
-                             * 正常登陆流程
-                             */
-                            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                            intent.putExtra("user", (User) responseObj);
-                            startActivity(intent);
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Object reasonObj) {
-                        DialogUtil.getInstance().dismissProgressDialog();
+                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                        intent.putExtra("user", (User) responseObj);
+                        startActivity(intent);
                     }
                 }
+
+                @Override
+                public void onFailure(Object reasonObj) {
+                    DialogUtil.getInstance().dismissProgressDialog();
+                }
+            }
         );
     }
 
@@ -125,6 +135,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
         if (loginRequest != null) {
             loginRequest.cancel(true);
         }
+        unregisterBroadcast();
     }
 
     @Override
@@ -141,6 +152,34 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
                  */
                 requestLogin();
                 break;
+        }
+    }
+
+    private void sendLoginSuccessBroadcast() {
+        Intent loginIntent = new Intent("com.example.dragreleative.login_success");
+        LocalBroadcastManager.getInstance(this).sendBroadcast(loginIntent);
+    }
+
+    /**
+     * 使用LocalBroadcastManager去处理应用内广播
+     */
+    private void registerBroadcast() {
+
+        IntentFilter filter = new IntentFilter("com.example.dragreleative.login_success");
+        LocalBroadcastManager.getInstance(this).registerReceiver(receiver, filter);
+    }
+
+    private void unregisterBroadcast() {
+
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
+    }
+
+    private class LoginBroadcastReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            Log.e("---------->", "yes");
         }
     }
 }

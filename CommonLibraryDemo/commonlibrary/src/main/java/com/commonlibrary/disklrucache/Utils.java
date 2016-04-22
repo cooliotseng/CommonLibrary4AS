@@ -15,45 +15,35 @@ import java.io.ByteArrayOutputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class Utils
-{
-    public static int getAppVersion(Context context)
-    {
-        try
-        {
+public class Utils {
+    public static int getAppVersion(Context context) {
+        try {
             PackageInfo info = context.getPackageManager().getPackageInfo(context.getPackageName(),
                     0);
             return info.versionCode;
-        } catch (PackageManager.NameNotFoundException e)
-        {
+        } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
         return 1;
     }
 
-    public static String hashKeyForDisk(String key)
-    {
+    public static String hashKeyForDisk(String key) {
         String cacheKey;
-        try
-        {
+        try {
             final MessageDigest mDigest = MessageDigest.getInstance("MD5");
             mDigest.update(key.getBytes());
             cacheKey = bytesToHexString(mDigest.digest());
-        } catch (NoSuchAlgorithmException e)
-        {
+        } catch (NoSuchAlgorithmException e) {
             cacheKey = String.valueOf(key.hashCode());
         }
         return cacheKey;
     }
 
-    public static String bytesToHexString(byte[] bytes)
-    {
+    public static String bytesToHexString(byte[] bytes) {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < bytes.length; i++)
-        {
+        for (int i = 0; i < bytes.length; i++) {
             String hex = Integer.toHexString(0xFF & bytes[i]);
-            if (hex.length() == 1)
-            {
+            if (hex.length() == 1) {
                 sb.append('0');
             }
             sb.append(hex);
@@ -61,10 +51,8 @@ public class Utils
         return sb.toString();
     }
 
-    public static byte[] bitmap2Bytes(Bitmap bm)
-    {
-        if (bm == null)
-        {
+    public static byte[] bitmap2Bytes(Bitmap bm) {
+        if (bm == null) {
             return null;
         }
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -72,18 +60,15 @@ public class Utils
         return baos.toByteArray();
     }
 
-    public static Bitmap bytes2Bitmap(byte[] bytes)
-    {
+    public static Bitmap bytes2Bitmap(byte[] bytes) {
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
     }
 
     /**
      * Drawable 鈫�Bitmap
      */
-    public static Bitmap drawable2Bitmap(Drawable drawable)
-    {
-        if (drawable == null)
-        {
+    public static Bitmap drawable2Bitmap(Drawable drawable) {
+        if (drawable == null) {
             return null;
         }
         int w = drawable.getIntrinsicWidth();
@@ -100,10 +85,8 @@ public class Utils
      * Bitmap 鈫�Drawable
      */
     @SuppressWarnings("deprecation")
-    public static Drawable bitmap2Drawable(Bitmap bm)
-    {
-        if (bm == null)
-        {
+    public static Drawable bitmap2Drawable(Bitmap bm) {
+        if (bm == null) {
             return null;
         }
         BitmapDrawable bd = new BitmapDrawable(bm);

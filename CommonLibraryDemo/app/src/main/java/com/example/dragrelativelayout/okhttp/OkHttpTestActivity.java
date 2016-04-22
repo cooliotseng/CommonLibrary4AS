@@ -67,15 +67,15 @@ public class OkHttpTestActivity extends BaseActivity implements DisposeHandleCoo
         params.put("name", "renzhiqaing");
 
         CommonOkHttpClient.get(CommonRequest.createGetRequest("https://publicobject.com/helloworld.txt", params),
-                new DisposeDataHandle(new DisposeDataListener() {
-                    @Override
-                    public void onSuccess(Object responseObj) {
-                    }
+            new DisposeDataHandle(new DisposeDataListener() {
+                @Override
+                public void onSuccess(Object responseObj) {
+                }
 
-                    @Override
-                    public void onFailure(Object reasonObj) {
-                    }
-                }));
+                @Override
+                public void onFailure(Object reasonObj) {
+                }
+            }));
     }
 
     /**
@@ -89,7 +89,7 @@ public class OkHttpTestActivity extends BaseActivity implements DisposeHandleCoo
         params.put("mb", "18911230100");
         params.put("pwd", "999999q");
         CommonOkHttpClient.post(CommonRequest.createPostRequest(UrlConstants.USER_LOGIN, params),
-                new DisposeDataHandle(this, User.class));
+            new DisposeDataHandle(this, User.class));
     }
 
     /**
@@ -97,27 +97,9 @@ public class OkHttpTestActivity extends BaseActivity implements DisposeHandleCoo
      */
     private void downloadFile() {
 
-//        CommonOkHttpClient.downloadFile(CommonRequest.createGetRequest("http://images.csdn.net/20150817/1.jpg", null),
-//                new DisposeDataHandle(new DisposeDownloadListener() {
-//                    @Override
-//                    public void onSuccess(Object responseObj) {
-//                        mImageView.setImageBitmap(BitmapFactory.decodeFile(((File) responseObj).getAbsolutePath()));
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Object reasonObj) {
-//                    }
-//
-//                    @Override
-//                    public void onProgress(int progrss) {
-//                        // 监听下载进度，更新UI
-//                        Log.e("--------->当前进度为:", progrss + "");
-//                    }
-//                }, Environment.getExternalStorageDirectory().getAbsolutePath() + "/test2.jpg"));
-
         if (hasPermission(Constants.WRITE_READ_EXTERNAL_PERMISSION)) {
 
-            doUnderThePermission();
+            doSDCardPermission();
         } else {
             requestPermission(Constants.WRITE_READ_EXTERNAL_CODE, Constants.WRITE_READ_EXTERNAL_PERMISSION);
         }
@@ -129,18 +111,18 @@ public class OkHttpTestActivity extends BaseActivity implements DisposeHandleCoo
         params.put("test", new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/test2.jpg"));
 
         CommonOkHttpClient.post(CommonRequest.createMultiPostRequest("https://api.imgur.com/3/image", params),
-                new DisposeDataHandle(new DisposeDataListener() {
+            new DisposeDataHandle(new DisposeDataListener() {
 
-                    @Override
-                    public void onSuccess(Object responseObj) {
+                @Override
+                public void onSuccess(Object responseObj) {
 
-                    }
+                }
 
-                    @Override
-                    public void onFailure(Object reasonObj) {
+                @Override
+                public void onFailure(Object reasonObj) {
 
-                    }
-                }));
+                }
+            }));
     }
 
     /**
@@ -155,17 +137,17 @@ public class OkHttpTestActivity extends BaseActivity implements DisposeHandleCoo
          * 这是一个需要Cookie的请求，说明Okhttp帮我们存储了Cookie，可以获取到数据用户数据
          */
         CommonOkHttpClient.post(CommonRequest.createPostRequest(UrlConstants.PUSH_LIST, null),
-                new DisposeDataHandle(new DisposeDataListener() {
-                    @Override
-                    public void onSuccess(Object responseObj) {
-                        mCookieTextView.setText(responseObj.toString());
-                        // Log.e("push_list", responseObj.toString());
-                    }
+            new DisposeDataHandle(new DisposeDataListener() {
+                @Override
+                public void onSuccess(Object responseObj) {
+                    mCookieTextView.setText(responseObj.toString());
+                    // Log.e("push_list", responseObj.toString());
+                }
 
-                    @Override
-                    public void onFailure(Object reasonObj) {
-                    }
-                }));
+                @Override
+                public void onFailure(Object reasonObj) {
+                }
+            }));
     }
 
     @Override
@@ -200,8 +182,9 @@ public class OkHttpTestActivity extends BaseActivity implements DisposeHandleCoo
         }
     }
 
+
     @Override
-    public void doUnderThePermission() {
+    public void doSDCardPermission() {
 
         SimpleImageLoader.getInstance().displayImage(mImageView, "http://images.csdn.net/20150817/1.jpg");
         SimpleImageLoader.getInstance().displayImage(mSecondView, "http://banbao.chazidian.com/uploadfile/2016-01-25/s145368924044608.jpg");
