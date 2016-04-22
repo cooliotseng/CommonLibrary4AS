@@ -1,6 +1,7 @@
 package com.example.dragrelativelayout.base;
 
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -88,7 +89,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     /**
-     * 申请指定的权限
+     * 申请指定的权限.
      */
     public void requestPermission(int code, String... permissions) {
 
