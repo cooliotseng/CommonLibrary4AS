@@ -1,15 +1,15 @@
 package com.commonlibrary.database.db;
 
-import java.util.ArrayList;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+
 /**
  * @author renzhiqiang
- * @description 工程数据库助手类
+ * @description 工程数据库助手类,我們在自己封裝一些東西的時候可以以Manager類的型式，也可以以Helper的形式
  * @date 2015年8月19日
  */
 public final class DBHelper extends SQLiteOpenHelper {
@@ -55,7 +55,7 @@ public final class DBHelper extends SQLiteOpenHelper {
      * @param context
      */
     public DBHelper(Context context) {
-        super(context, DATABASE_NAME, null, 1);
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     public static synchronized DBHelper getInstance() {
@@ -70,6 +70,7 @@ public final class DBHelper extends SQLiteOpenHelper {
 
     /**
      * 调用getInstance时先为其初始化一个Context
+     *
      * @param context
      */
     public static void setContext(Context context) {
@@ -92,6 +93,18 @@ public final class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
+        //根据老的数据库版本名来升级数据库,增量升级
+        switch (oldVersion) {
+            case 1:
+                //此处不应该有break; 保证版本跳跃时也可以全部更新，例如:由oldVersion为1直接到version 5
+            case 2:
+                //老版本为2时,说明一定执行过了老版本为1时的更新,再执行以后所有版本的更新即可,不需要使用网上的那种循环的方式。
+            case 3:
+
+            default:
+                break;
+        }
     }
 
     private void createAllTables(SQLiteDatabase db) {
@@ -99,14 +112,14 @@ public final class DBHelper extends SQLiteOpenHelper {
          * 创建基金列表
          */
         String[] cloumns = new String[]{FUND_CODE + TEXT_TYPE, FUND_ABBREV + TEXT_TYPE, FUND_SPELL + TEXT_TYPE,
-                FUND_TYPE + INTEGER_TYPE};
+            FUND_TYPE + INTEGER_TYPE};
         createTable(db, FUND_LIST_TABLE, cloumns);
 
         /**
          * 创建基金浏览列表
          */
         cloumns = new String[]{FUND_CODE + TEXT_TYPE, FUND_ABBREV + TEXT_TYPE, FUND_SPELL + TEXT_TYPE,
-                FUND_TYPE + INTEGER_TYPE};
+            FUND_TYPE + INTEGER_TYPE};
         createTable(db, FUND_BROWSE_TABLE, cloumns);
     }
 
@@ -135,7 +148,6 @@ public final class DBHelper extends SQLiteOpenHelper {
         } catch (Exception e) {
             e.getMessage();
         }
-
     }
 
     /**

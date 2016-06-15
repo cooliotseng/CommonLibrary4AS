@@ -1,4 +1,8 @@
 <resources>
     <!-- <string name="app_name">CommonLibraryDemo</string> -->
     <string name="loading">loading</string>
+    <string name="title_activity_layout_inflate">LayoutInflateActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 </resources>

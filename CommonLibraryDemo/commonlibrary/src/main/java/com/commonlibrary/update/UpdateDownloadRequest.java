@@ -1,15 +1,15 @@
 package com.commonlibrary.update;
 
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.DecimalFormat;
-
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 
 /**********************************************************
  * @文件名称：UpdateDownloadRequest.java
@@ -200,6 +200,7 @@ public class UpdateDownloadRequest implements Runnable {
 		private int progress = 0;
 		private static final int PROGRESS_CHANGED = 5;
 		private static final int PAUSED_MESSAGE = 7;
+
 
 		void sendResponseMessage(InputStream is) {
 			RandomAccessFile randomAccessFile = null;
